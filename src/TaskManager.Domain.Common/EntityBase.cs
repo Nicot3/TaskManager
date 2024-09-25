@@ -2,9 +2,9 @@
 
 namespace TaskManager.Domain.Common
 {
-    public abstract class EntityBase<T> where T : class
+    public abstract class EntityBase
     {
         [Key]
-        public required T Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
     }
 }

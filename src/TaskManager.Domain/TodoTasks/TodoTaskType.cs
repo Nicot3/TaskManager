@@ -1,4 +1,4 @@
-﻿namespace TaskManager.Domain.Tasks
+﻿namespace TaskManager.Domain.TodoTasks
 {
     public enum TodoTaskType
     {
