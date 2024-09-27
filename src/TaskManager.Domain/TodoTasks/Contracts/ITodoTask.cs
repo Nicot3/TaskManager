@@ -3,13 +3,13 @@ namespace TaskManager.Domain.TodoTasks.Contracts
 {
     public interface ITodoTask
     {
-        string Name { get; set; }
-        string? Description { get; set; }
-        bool IsCompleted { get; set; }
+        string Name { get; }
+        string? Description { get; }
+        bool IsCompleted { get; }
 
-        DateTime CreatedDate { get; set; }
-        DateTime? ModifiedDate { get; set; }
+        DateTime CreatedDate { get; }
+        DateTime? ModifiedDate { get; }
 
-        TodoTaskType TaskType { get; set; }
+        TodoTaskType TaskType { get; }
     }
 }
