@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TaskManager.Application.Common.Contracts;
 using TaskManager.Domain.TodoTasks;
 using TaskManager.Infrastructure.DB;
 
@@ -8,7 +9,9 @@ namespace TaskManager.Infrastructure.Repositories
     {
         private readonly TaskManagerDbContext _context;
 
-        public TodoTaskRepository(TaskManagerDbContext context) 
+        public IUnitOfWork UnitOfWork => _context;
+
+        public TodoTaskRepository(TaskManagerDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
@@ -37,6 +40,8 @@ namespace TaskManager.Infrastructure.Repositories
 
         public async Task UpdateAsync(TodoTask entity)
         {
+            entity.UpdateModifiedDate();
+            _context.Entry(entity).State = EntityState.Modified;
             _context.TodoTasks.Update(entity);
             await SaveAsync();
         }

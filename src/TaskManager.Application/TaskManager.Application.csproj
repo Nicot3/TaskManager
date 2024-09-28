@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="Task\**" />
+    <Compile Remove="TodoTask\**" />
     <EmbeddedResource Remove="Task\**" />
+    <EmbeddedResource Remove="TodoTask\**" />
     <None Remove="Task\**" />
+    <None Remove="TodoTask\**" />
   </ItemGroup>
 
   <ItemGroup>

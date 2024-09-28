@@ -60,5 +60,10 @@ namespace TaskManager.Domain.TodoTasks
 
             _tags.Remove(tag);
         }
+
+        public void UpdateModifiedDate()
+        {
+            ModifiedDate = DateTime.Now;
+        }
     }
 }
