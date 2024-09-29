@@ -19,15 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Application.Common", "TaskManager.Application.Common\TaskManager.Application.Common.csproj", "{3E84D3F7-FB8A-462C-9878-8D4F434B5ECD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Apps.API", "TaskManager.Apps.API\TaskManager.Apps.API.csproj", "{C476B2A6-7F94-433B-968D-4A407074024E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Infrastructure.DB", "TaskManager.Infrastructure.DB\TaskManager.Infrastructure.DB.csproj", "{FEF09E87-958E-4A42-B484-51A4A8229010}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Infrastructure.Repositories", "TaskManager.Infrastructure.Repositories\TaskManager.Infrastructure.Repositories.csproj", "{AB591433-38F9-4BBD-BA2C-F7153912A6BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F1723D0F-BCE2-435A-A553-F71A5E45AA02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Domain.Tests", "TaskManager.Domain.Tests\TaskManager.Domain.Tests.csproj", "{ED37897E-A61B-4E96-8918-06AD8AC33260}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Domain.Tests", "TaskManager.Domain.Tests\TaskManager.Domain.Tests.csproj", "{ED37897E-A61B-4E96-8918-06AD8AC33260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Apps.API", "TaskManager.Apps.API\TaskManager.Apps.API.csproj", "{5E39E97F-3877-420C-BD1C-6E1EB343D8E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,6 @@ Global
 		{3E84D3F7-FB8A-462C-9878-8D4F434B5ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E84D3F7-FB8A-462C-9878-8D4F434B5ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E84D3F7-FB8A-462C-9878-8D4F434B5ECD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C476B2A6-7F94-433B-968D-4A407074024E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C476B2A6-7F94-433B-968D-4A407074024E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C476B2A6-7F94-433B-968D-4A407074024E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C476B2A6-7F94-433B-968D-4A407074024E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FEF09E87-958E-4A42-B484-51A4A8229010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FEF09E87-958E-4A42-B484-51A4A8229010}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEF09E87-958E-4A42-B484-51A4A8229010}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,6 +63,10 @@ Global
 		{ED37897E-A61B-4E96-8918-06AD8AC33260}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED37897E-A61B-4E96-8918-06AD8AC33260}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED37897E-A61B-4E96-8918-06AD8AC33260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E39E97F-3877-420C-BD1C-6E1EB343D8E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E39E97F-3877-420C-BD1C-6E1EB343D8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E39E97F-3877-420C-BD1C-6E1EB343D8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E39E97F-3877-420C-BD1C-6E1EB343D8E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,7 +76,6 @@ Global
 		{79583786-5BF2-44BC-887E-883EACCAE85F} = {49EA044B-82A4-42F6-B6EF-8FB147563043}
 		{95ADE218-3021-4D2E-AAE1-2B152A465E19} = {A6008EB6-49C1-4D81-9528-2CD035AA2A83}
 		{3E84D3F7-FB8A-462C-9878-8D4F434B5ECD} = {A6008EB6-49C1-4D81-9528-2CD035AA2A83}
-		{C476B2A6-7F94-433B-968D-4A407074024E} = {B4F9D9C3-2399-43AF-886C-75ECC9B51324}
 		{FEF09E87-958E-4A42-B484-51A4A8229010} = {AFF9D14A-8727-4B7C-B43C-E24E52B27B22}
 		{AB591433-38F9-4BBD-BA2C-F7153912A6BC} = {AFF9D14A-8727-4B7C-B43C-E24E52B27B22}
 		{ED37897E-A61B-4E96-8918-06AD8AC33260} = {F1723D0F-BCE2-435A-A553-F71A5E45AA02}
