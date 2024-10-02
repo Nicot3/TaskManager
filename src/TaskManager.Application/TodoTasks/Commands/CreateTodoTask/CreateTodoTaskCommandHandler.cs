@@ -20,7 +20,7 @@ namespace TaskManager.Application.TodoTasks.Commands.CreateTodoTask
         {
             var task = new TodoTask(command.Name, command.Description, command.TaskType, false, command.StartDate, command.EndDate);
 
-            await _taskRepository.CreateAsync(task);
+            await _taskRepository.CreateAsync(task, cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
