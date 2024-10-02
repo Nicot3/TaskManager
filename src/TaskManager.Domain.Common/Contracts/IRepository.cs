@@ -8,10 +8,10 @@ namespace TaskManager.Domain.Common.Contracts
     {
         IUnitOfWork UnitOfWork { get; }
 
-        Task CreateAsync(TEntity entity);
-        Task<TEntity?> GetByIdAsync(TKey id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(TEntity id);
+        Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task<TEntity?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task DeleteAsync(TEntity id, CancellationToken cancellationToken = default);
     }
 }

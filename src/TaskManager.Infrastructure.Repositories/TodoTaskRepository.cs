@@ -16,39 +16,39 @@ namespace TaskManager.Infrastructure.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task CreateAsync(TodoTask entity)
+        public async Task CreateAsync(TodoTask entity, CancellationToken cancellationToken = default)
         {
-            await _context.TodoTasks.AddAsync(entity);
-            await SaveAsync();
+            await _context.TodoTasks.AddAsync(entity, cancellationToken);
+            await SaveAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(TodoTask task)
+        public async Task DeleteAsync(TodoTask task, CancellationToken cancellationToken = default)
         {
             _context.TodoTasks.Remove(task);
-            await SaveAsync();
+            await SaveAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TodoTask>> GetAllAsync()
+        public async Task<IEnumerable<TodoTask>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.TodoTasks.ToListAsync();
+            return await _context.TodoTasks.ToListAsync(cancellationToken);
         }
 
-        public async Task<TodoTask?> GetByIdAsync(string id)
+        public async Task<TodoTask?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
-            return await _context.TodoTasks.Where(t => t.Id == id).FirstOrDefaultAsync();
+            return await _context.TodoTasks.Where(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(TodoTask entity)
+        public async Task UpdateAsync(TodoTask entity, CancellationToken cancellationToken = default)
         {
             entity.UpdateModifiedDate();
             _context.Entry(entity).State = EntityState.Modified;
             _context.TodoTasks.Update(entity);
-            await SaveAsync();
+            await SaveAsync(cancellationToken);
         }
 
-        public async Task SaveAsync()
+        public async Task SaveAsync(CancellationToken cancellationToken = default)
         {
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
