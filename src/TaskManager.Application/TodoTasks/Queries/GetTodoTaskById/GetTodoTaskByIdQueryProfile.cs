@@ -5,7 +5,7 @@ namespace TaskManager.Application.TodoTasks.Queries.GetTodoTaskById
 {
     public class GetTodoTaskByIdQueryProfile : Profile
     {
-        protected GetTodoTaskByIdQueryProfile()
+        public GetTodoTaskByIdQueryProfile()
         {
             CreateMap<TodoTask, GetTodoTaskByIdQueryResult>();
         }

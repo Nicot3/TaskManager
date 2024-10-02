@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManager.Application.Common.Contracts;
 using TaskManager.Domain.TodoTasks;
-using TaskManager.Infrastructure.DB;
 
-namespace TaskManager.Infrastructure.Repositories
+namespace TaskManager.Infrastructure.DB.Repositories
 {
     public class TodoTaskRepository : ITodoTaskRepository
     {

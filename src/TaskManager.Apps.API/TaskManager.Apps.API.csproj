@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskManager.Infrastructure.Repositories\TaskManager.Infrastructure.Repositories.csproj" />
+    <ProjectReference Include="..\TaskManager.Application\TaskManager.Application.csproj" />
+    <ProjectReference Include="..\TaskManager.Infrastructure.DB\TaskManager.Infrastructure.DB.csproj" />
   </ItemGroup>
 
 </Project>

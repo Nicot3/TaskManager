@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TaskManager.Application.Common.Contracts;
+using TaskManager.Domain.TodoTasks;
 using TaskManager.Infrastructure.DB;
+using TaskManager.Infrastructure.DB.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -14,6 +16,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<TaskManagerDbContext>(c => {
                 c.UseSqlServer(connectionString);
             });
+
+            services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
             services.AddScoped<IUnitOfWork, TaskManagerDbContext>();
 
