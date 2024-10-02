@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using TaskManager.Application.Common.Contracts;
+using TaskManager.Infrastructure.DB;
 
-namespace TaskManager.Infrastructure.DB
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class Bootstrapper
     {

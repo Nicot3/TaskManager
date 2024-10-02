@@ -22,6 +22,35 @@ namespace TaskManager.Infrastructure.DB.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("TagTodoTask", b =>
+                {
+                    b.Property<string>("TagsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TodoTaskId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TagsId", "TodoTaskId");
+
+                    b.HasIndex("TodoTaskId");
+
+                    b.ToTable("TagTodoTask");
+                });
+
+            modelBuilder.Entity("TaskManager.Domain.TodoTasks.Tag", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tag");
+                });
+
             modelBuilder.Entity("TaskManager.Domain.TodoTasks.TodoTask", b =>
                 {
                     b.Property<string>("Id")
@@ -55,6 +84,21 @@ namespace TaskManager.Infrastructure.DB.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TodoTasks");
+                });
+
+            modelBuilder.Entity("TagTodoTask", b =>
+                {
+                    b.HasOne("TaskManager.Domain.TodoTasks.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TaskManager.Domain.TodoTasks.TodoTask", null)
+                        .WithMany()
+                        .HasForeignKey("TodoTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

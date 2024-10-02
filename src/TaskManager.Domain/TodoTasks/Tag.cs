@@ -1,9 +1,9 @@
 ﻿
-using TaskManager.Domain.Common.Contracts;
+using TaskManager.Domain.Common;
 
 namespace TaskManager.Domain.TodoTasks
 {
-    public class Tag : IValueObject
+    public class Tag : EntityBase
     {
         public string Name { get; set; }
 
