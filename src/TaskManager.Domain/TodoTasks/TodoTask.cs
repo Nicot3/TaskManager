@@ -15,7 +15,7 @@ namespace TaskManager.Domain.TodoTasks
         public IEnumerable<Tag> Tags => _tags;
 
         public bool IsCompleted { get; private set; }
-        public DateTime CreatedDate { get; private set; }
+        public DateTime CreatedDate { get; private set; } = DateTime.Now;
         public DateTime? ModifiedDate { get; private set; }
 
         [Required]
