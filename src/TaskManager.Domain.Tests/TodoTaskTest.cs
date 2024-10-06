@@ -71,5 +71,18 @@ namespace TaskManager.Domain.Tests
 
             act.Should().Throw<ArgumentException>().WithMessage($"Tag with name {tag} doesn't exists in the {todoTask.Id} task tags");
         }
+
+        [Fact]
+        public void TodoTask_UpdateModifiedDate_ShouldUpdateModifiedDate() {
+            //Arrange
+            var fixture = new Fixture();
+
+            var tag = fixture.Create<TodoTask>();
+            var date = tag.ModifiedDate;
+            //Act
+            tag.UpdateModifiedDate();
+            //Assert
+            tag.ModifiedDate.Should().NotBe(date);
+        }
     }
 }
