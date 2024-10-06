@@ -8,6 +8,7 @@ namespace TaskManager.Application.TodoTasks.Queries.GetTodoTaskById
         public GetTodoTaskByIdQueryProfile()
         {
             CreateMap<TodoTask, GetTodoTaskByIdQueryResult>();
+            CreateMap<Tag, GetTodoTaskByIdQueryResultTag>();
         }
     }
 }

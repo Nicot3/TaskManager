@@ -7,12 +7,18 @@ namespace TaskManager.Infrastructure.DB
 {
     public class TaskManagerDbContext : DbContext, IUnitOfWork
     {
+        
+        public DbSet<TodoTask> TodoTasks { get; set; }
+
         public TaskManagerDbContext(DbContextOptions options) : base(options)
         {
 
         }
 
-        public DbSet<TodoTask> TodoTasks { get; set; }
+        public TaskManagerDbContext() : base()
+        {
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

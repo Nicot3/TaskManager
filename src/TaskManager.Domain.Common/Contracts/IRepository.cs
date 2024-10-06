@@ -13,5 +13,6 @@ namespace TaskManager.Domain.Common.Contracts
         Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
         Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
         Task DeleteAsync(TEntity id, CancellationToken cancellationToken = default);
+        IQueryable<TEntity> GetQueryable();
     }
 }

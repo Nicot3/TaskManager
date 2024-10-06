@@ -15,6 +15,11 @@ namespace TaskManager.Infrastructure.DB.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public IQueryable<TodoTask> GetQueryable()
+        {
+            return _context.TodoTasks.Include(t => t.Tags).AsQueryable();
+        }
+
         public async Task CreateAsync(TodoTask entity, CancellationToken cancellationToken = default)
         {
             await _context.TodoTasks.AddAsync(entity, cancellationToken);
@@ -29,12 +34,14 @@ namespace TaskManager.Infrastructure.DB.Repositories
 
         public async Task<IEnumerable<TodoTask>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.TodoTasks.ToListAsync(cancellationToken);
+            return await GetQueryable().ToListAsync(cancellationToken);
         }
 
         public async Task<TodoTask?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
-            return await _context.TodoTasks.Where(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
+            return await GetQueryable()
+                .Where(t => t.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(TodoTask entity, CancellationToken cancellationToken = default)
