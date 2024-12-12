@@ -37,6 +37,11 @@ namespace TaskManager.Infrastructure.DB.Repositories
             return await GetQueryable().ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<TodoTask>> GetAllIncompleteAsync(CancellationToken cancellationToken = default)
+        {
+            return await GetQueryable().Where(tt => tt.IsCompleted == false).ToListAsync(cancellationToken);
+        }
+
         public async Task<TodoTask?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
             return await GetQueryable()

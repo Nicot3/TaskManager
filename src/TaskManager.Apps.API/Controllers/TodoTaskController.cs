@@ -4,6 +4,8 @@ using TaskManager.Application.Common.Contracts.Queries;
 using TaskManager.Application.Common.Exceptions;
 using TaskManager.Application.TodoTasks.Commands.AddTag;
 using TaskManager.Application.TodoTasks.Commands.CreateTodoTask;
+using TaskManager.Application.TodoTasks.Commands.DeleteTodoTask;
+using TaskManager.Application.TodoTasks.Queries.GetIncompleteTodoTasks;
 using TaskManager.Application.TodoTasks.Queries.GetTodoTaskById;
 using TaskManager.Application.TodoTasks.Queries.GetTodoTasks;
 
@@ -17,19 +19,23 @@ namespace TaskManager.Apps.API.Controllers
     {
         private readonly ICommandHandler<CreateTodoTaskCommand, string> _createTodoTaskCommandHandler;
         private readonly ICommandHandler<AddTagCommand, bool> _addTagCommandHandler;
+        private readonly ICommandHandler<DeleteTodoTaskCommand> _deleteTodoTaskCommandHandler;
 
         private readonly IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> _getTodoTaskByIdQueryResult;
         private readonly IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> _getTodoTasksQueryResult;
 
+
         public TodoTaskController(ICommandHandler<CreateTodoTaskCommand, string> createTodoTaskCommandHandler,
                                   IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> getTodoTaskByIdQueryResult,
                                   IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> getTodoTasksQueryResult,
-                                  ICommandHandler<AddTagCommand, bool> addTagCommandHandler)
+                                  ICommandHandler<AddTagCommand, bool> addTagCommandHandler,
+                                  ICommandHandler<DeleteTodoTaskCommand> deleteTodoTaskCommandHandler)
         {
             _createTodoTaskCommandHandler = createTodoTaskCommandHandler;
             _getTodoTaskByIdQueryResult = getTodoTaskByIdQueryResult;
             _getTodoTasksQueryResult = getTodoTasksQueryResult;
             _addTagCommandHandler = addTagCommandHandler;
+            _deleteTodoTaskCommandHandler = deleteTodoTaskCommandHandler;
         }
 
 
@@ -101,9 +107,18 @@ namespace TaskManager.Apps.API.Controllers
 
         // DELETE api/<TodoTaskController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _deleteTodoTaskCommandHandler.HandleAsync(new DeleteTodoTaskCommand() { TodoTaskId = id });
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+                throw;
+            }
         }
 
         [HttpPost("{id}/Tag")]
