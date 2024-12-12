@@ -17,25 +17,27 @@ namespace TaskManager.Apps.API.Controllers
     [ApiController]
     public class TodoTaskController : ControllerBase
     {
-        private readonly ICommandHandler<CreateTodoTaskCommand, string> _createTodoTaskCommandHandler;
-        private readonly ICommandHandler<AddTagCommand, bool> _addTagCommandHandler;
-        private readonly ICommandHandler<DeleteTodoTaskCommand> _deleteTodoTaskCommandHandler;
+        private readonly ICommandHandler<CreateTodoTaskCommand, string> _createTodoTaskCommand;
+        private readonly ICommandHandler<AddTagCommand, bool> _addTagCommand;
+        private readonly ICommandHandler<DeleteTodoTaskCommand> _deleteTodoTaskCommand;
 
-        private readonly IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> _getTodoTaskByIdQueryResult;
-        private readonly IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> _getTodoTasksQueryResult;
+        private readonly IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> _getTodoTaskByIdQuery;
+        private readonly IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> _getTodoTasksQuery;
+        private readonly IQueryHandler<GetIncompleteTodoTasksQuery, GetIncompleteTodoTasksQueryResult> _getIncompleteTodoTasksQuery;
 
-
-        public TodoTaskController(ICommandHandler<CreateTodoTaskCommand, string> createTodoTaskCommandHandler,
-                                  IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> getTodoTaskByIdQueryResult,
-                                  IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> getTodoTasksQueryResult,
-                                  ICommandHandler<AddTagCommand, bool> addTagCommandHandler,
-                                  ICommandHandler<DeleteTodoTaskCommand> deleteTodoTaskCommandHandler)
+        public TodoTaskController(ICommandHandler<CreateTodoTaskCommand, string> createTodoTaskCommand,
+                                  IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> getTodoTaskByIdQuery,
+                                  IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> getTodoTasksQuery,
+                                  IQueryHandler<GetIncompleteTodoTasksQuery, GetIncompleteTodoTasksQueryResult> getIncompleteTodoTasksQuery,
+                                  ICommandHandler<AddTagCommand, bool> addTagCommand,
+                                  ICommandHandler<DeleteTodoTaskCommand> deleteTodoTaskCommand)
         {
-            _createTodoTaskCommandHandler = createTodoTaskCommandHandler;
-            _getTodoTaskByIdQueryResult = getTodoTaskByIdQueryResult;
-            _getTodoTasksQueryResult = getTodoTasksQueryResult;
-            _addTagCommandHandler = addTagCommandHandler;
-            _deleteTodoTaskCommandHandler = deleteTodoTaskCommandHandler;
+            _createTodoTaskCommand = createTodoTaskCommand;
+            _getTodoTaskByIdQuery = getTodoTaskByIdQuery;
+            _getTodoTasksQuery = getTodoTasksQuery;
+            _getIncompleteTodoTasksQuery = getIncompleteTodoTasksQuery;
+            _addTagCommand = addTagCommand;
+            _deleteTodoTaskCommand = deleteTodoTaskCommand;
         }
 
 
@@ -45,7 +47,7 @@ namespace TaskManager.Apps.API.Controllers
         {
             try
             {
-                var todoTasks = await _getTodoTasksQueryResult.ExecuteAsync(new());
+                var todoTasks = await _getTodoTasksQuery.ExecuteAsync(new());
                 return Ok(todoTasks);
             }
             catch (Exception e)
@@ -60,7 +62,7 @@ namespace TaskManager.Apps.API.Controllers
         {
             try
             {
-                var todoTask = await _getTodoTaskByIdQueryResult.ExecuteAsync(new GetTodoTaskByIdQuery() 
+                var todoTask = await _getTodoTaskByIdQuery.ExecuteAsync(new GetTodoTaskByIdQuery() 
                 { 
                     Id = id
                 });
@@ -69,6 +71,22 @@ namespace TaskManager.Apps.API.Controllers
             }
             catch (EntityNotFoundException e)
             {
+                return BadRequest(e.Message);
+            }
+        }
+
+        // GET api/<TodoTaskController>/incomplete
+        [HttpGet("incomplete")]
+        public async Task<IActionResult> GetIncompletedAsync(CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var incompleteTodoTasks = await _getIncompleteTodoTasksQuery.ExecuteAsync(new GetIncompleteTodoTasksQuery(), cancellationToken);
+                return Ok(incompleteTodoTasks);
+            }
+            catch (Exception e)
+            {
+
                 return BadRequest(e.Message);
             }
         }
@@ -84,7 +102,7 @@ namespace TaskManager.Apps.API.Controllers
         {
             try
             {
-                var taskId = await _createTodoTaskCommandHandler.HandleAsync(command, default);
+                var taskId = await _createTodoTaskCommand.HandleAsync(command, default);
                 return Ok(taskId);
             }
             catch (Exception e)
@@ -111,7 +129,7 @@ namespace TaskManager.Apps.API.Controllers
         {
             try
             {
-                await _deleteTodoTaskCommandHandler.HandleAsync(new DeleteTodoTaskCommand() { TodoTaskId = id });
+                await _deleteTodoTaskCommand.HandleAsync(new DeleteTodoTaskCommand() { TodoTaskId = id });
                 return Ok();
             }
             catch (Exception e)
@@ -126,7 +144,7 @@ namespace TaskManager.Apps.API.Controllers
         {
             try
             {
-                var result = await _addTagCommandHandler.HandleAsync(new()
+                var result = await _addTagCommand.HandleAsync(new()
                 {
                     TodoTaskId = id,
                     Name = name
