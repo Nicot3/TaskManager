@@ -4,6 +4,7 @@ using TaskManager.Application.Common.Contracts.Queries;
 using TaskManager.Application.TodoTasks.Commands.AddTag;
 using TaskManager.Application.TodoTasks.Commands.CreateTodoTask;
 using TaskManager.Application.TodoTasks.Commands.DeleteTodoTask;
+using TaskManager.Application.TodoTasks.Commands.UpdateTodoTask;
 using TaskManager.Application.TodoTasks.Queries.GetIncompleteTodoTasks;
 using TaskManager.Application.TodoTasks.Queries.GetTodoTaskById;
 using TaskManager.Application.TodoTasks.Queries.GetTodoTasks;
@@ -28,6 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 c.AddProfile(typeof(GetTodoTaskByIdQueryProfile));
                 c.AddProfile(typeof(GetTodoTasksQueryProfile));
                 c.AddProfile(typeof(GetIncompleteTodoTasksQueryProfile));
+                c.AddProfile(typeof(CreateTodoTaskProfile));
             });
 
             return services;
