@@ -5,6 +5,7 @@ using TaskManager.Application.Common.Exceptions;
 using TaskManager.Application.TodoTasks.Commands.AddTag;
 using TaskManager.Application.TodoTasks.Commands.CreateTodoTask;
 using TaskManager.Application.TodoTasks.Commands.DeleteTodoTask;
+using TaskManager.Application.TodoTasks.Commands.UpdateTodoTask;
 using TaskManager.Application.TodoTasks.Queries.GetIncompleteTodoTasks;
 using TaskManager.Application.TodoTasks.Queries.GetTodoTaskById;
 using TaskManager.Application.TodoTasks.Queries.GetTodoTasks;
@@ -20,6 +21,7 @@ namespace TaskManager.Apps.API.Controllers
         private readonly ICommandHandler<CreateTodoTaskCommand, string> _createTodoTaskCommand;
         private readonly ICommandHandler<AddTagCommand, bool> _addTagCommand;
         private readonly ICommandHandler<DeleteTodoTaskCommand> _deleteTodoTaskCommand;
+        private readonly ICommandHandler<UpdateTodoTaskCommand, bool> _updateTodoTaskCommand;
 
         private readonly IQueryHandler<GetTodoTaskByIdQuery, GetTodoTaskByIdQueryResult> _getTodoTaskByIdQuery;
         private readonly IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> _getTodoTasksQuery;
@@ -30,7 +32,8 @@ namespace TaskManager.Apps.API.Controllers
                                   IQueryHandler<GetTodoTasksQuery, GetTodoTasksQueryResult> getTodoTasksQuery,
                                   IQueryHandler<GetIncompleteTodoTasksQuery, GetIncompleteTodoTasksQueryResult> getIncompleteTodoTasksQuery,
                                   ICommandHandler<AddTagCommand, bool> addTagCommand,
-                                  ICommandHandler<DeleteTodoTaskCommand> deleteTodoTaskCommand)
+                                  ICommandHandler<DeleteTodoTaskCommand> deleteTodoTaskCommand,
+                                  ICommandHandler<UpdateTodoTaskCommand, bool> updateTodoTaskCommand)
         {
             _createTodoTaskCommand = createTodoTaskCommand;
             _getTodoTaskByIdQuery = getTodoTaskByIdQuery;
@@ -38,6 +41,7 @@ namespace TaskManager.Apps.API.Controllers
             _getIncompleteTodoTasksQuery = getIncompleteTodoTasksQuery;
             _addTagCommand = addTagCommand;
             _deleteTodoTaskCommand = deleteTodoTaskCommand;
+            _updateTodoTaskCommand = updateTodoTaskCommand;
         }
 
 
@@ -111,16 +115,24 @@ namespace TaskManager.Apps.API.Controllers
             }
         }
 
-        // PUT api/<TodoTaskController>/5
+        // PUT api/<TodoTaskController>
         /// <summary>
         /// Update existing task
         /// </summary>
         /// <param name="id"></param>
         /// <param name="command"></param>
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string command)
+        [HttpPut()]
+        public async Task<IActionResult> Put([FromBody] UpdateTodoTaskCommand command)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _updateTodoTaskCommand.HandleAsync(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
         // DELETE api/<TodoTaskController>/5

@@ -37,6 +37,43 @@ namespace TaskManager.Domain.TodoTasks
             _tags = new List<Tag>();
         }
 
+        public void UpdateTask(string? name,
+                               string? description,
+                               bool? isCompleted,
+                               TodoTaskType? taskType,
+                               DateTime? startDate,
+                               DateTime? endDate)
+        {
+            if (name != null)
+            {
+                this.Name = name;
+            }
+            if (description != null)
+            {
+                this.Description = description;
+            }
+
+            if (isCompleted != null)
+            {
+                this.IsCompleted = isCompleted.Value;
+            }
+
+            if (taskType != null)
+            {
+                this.TaskType = taskType.Value;
+            }
+
+            if (startDate != null)
+            {
+                this.StartDate = startDate;
+            }
+
+            if (endDate != null)
+            {
+                this.EndDate = endDate;
+            }
+        }
+
         public void AddTag(string name)
         {
             var tag = _tags.FirstOrDefault(t => t.Name == name);
@@ -49,7 +86,8 @@ namespace TaskManager.Domain.TodoTasks
             _tags.Add(new Tag(name));
         }
 
-        public void RemoveTag(string name) {
+        public void RemoveTag(string name)
+        {
 
             var tag = _tags.FirstOrDefault(t => t.Name == name);
 

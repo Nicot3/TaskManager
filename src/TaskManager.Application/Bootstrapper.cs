@@ -21,6 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICommandHandler<CreateTodoTaskCommand, string>, CreateTodoTaskCommandHandler>();
             services.AddScoped<ICommandHandler<AddTagCommand, bool>, AddTagCommandHandler>();
             services.AddScoped<ICommandHandler<DeleteTodoTaskCommand>, DeleteTodoTaskCommandHandler>();
+            services.AddScoped<ICommandHandler<UpdateTodoTaskCommand, bool>, UpdateTodoTaskCommandHandler>();
 
             services.AddAutoMapper(c =>
             {
